@@ -1,0 +1,89 @@
+// Main logic for book route
+const helper = require('../helpers/response');
+const bookModel = require('../models/book');
+const query = require('../helpers/query');
+
+module.exports = {
+  getBook: async (req, res) => {
+    try {
+      let search = req.query.search;
+      let sort = req.query.sort;
+      let page = req.query.page;
+      
+      console.log(req.decodedToken);
+
+      // Ternary operator for query params
+      search && sort && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}' LIMIT ${page}`
+      : search && sort ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}'`
+      : search && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' LIMIT ${page}`
+      : sort && page ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}' LIMIT ${page}`
+      : search ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%'`
+      : sort ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}'`
+      : page > 1 ? query.book.get = `SELECT * FROM books\n LIMIT 3 OFFSET ${page*3-3}`
+      : page ? query.book.get = query.book.params.page
+      : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id)"
+
+
+      const result = await bookModel.getBookModel();
+      return helper.response(res, 'success', result, 200);
+    } catch(err) {
+      console.log(err);
+      return helper.response(res, 'failed', 'Something Error', 500);
+    }
+  },
+  createBook: async (req, res) => {
+    const setData = req.body;
+    setData.image = req.file ? req.file.filename : '';
+    try {
+      const result = await bookModel.createBookModel(setData);
+      return helper.response(res, 'success', result, 201);
+    } catch(err) {
+      console.log(err);
+      return helper.response(res, 'failed', 'Something Error', 500);
+    };
+  },
+  updateBook: async (req, res) => {
+    const id = req.params.id;
+    const newData = req.body;
+    newData.image = req.file ? req.file.filename : '';
+    try {
+      const result = await bookModel.updateBookModel(id, newData);
+      // Jika terjadi perubahan data, ditandai dengan berubahnya affectedRows
+      if(result.affectedRows == 1) {
+        // Error handling, value tidak boleh kosong
+        if(!newData.title) {
+          return helper.response(res, 'success', 'value cannot be empty!', 200);
+        }
+          // Pindahkan return ini ke helpers/response
+          return helper.response(res, 'success', `Data with id ${id} successfully updated`, 200);
+     }
+      return helper.response(res, 'failed', `Data with id ${id} not found`, 404);
+    } catch(err) {
+      console.log(err);
+      return helper.response(res, 'failed', 'Something Error', 500);
+    };
+  },
+  deleteBook: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const result = await bookModel.deleteBookModel(id);
+      if(result.affectedRows == 1) {
+        return helper.response(res, 'success', `Data with id ${id} successfully deleted`, 200);
+      }
+      return helper.response(res, 'failed', `Data with id ${id} not found`, 404);
+    } catch(err) {
+      console.log(err);
+      return helper.response(res, 'failed', 'Something Error', 500);
+    }
+  }
+}
+
+// search && sort && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}' LIMIT ${page}`
+// : search && sort ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}'`
+// : search && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' LIMIT ${page}`
+// : sort && page ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}' LIMIT ${page}`
+// : search ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%'`
+// : sort ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}'`
+// : page > 1 ? query.book.get = `SELECT * FROM books\n LIMIT 3 OFFSET ${page*3-3}`
+// : page ? query.book.get = query.book.params.page
+// : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id)"
