@@ -1,14 +1,14 @@
-`National Library` is a backend app built in Node.js, Express and MySQL which has [features](https://) such as login / register using JWT, pasword hashing, CORS, etc. 
+`National Library` is a backend app built in Node.js, Express and MySQL which has [features](https://github.com/danielwetan/national-library#features) such as login / register using JWT, pasword hashing, CORS, etc. 
 
 This app is a first week assignment on the [Arkademy](https://www.arkademy.com/) Bootcamp
 
 ## :memo: Table Of Content
-* [Prerequisites](https://)
-* [Installation](https://)
-* [Built wtih](https://)
-* [Features](https://)
-* [Author](https://)
-* [License](https://)
+* [Prerequisites](https://github.com/danielwetan/national-library#prerequisites)
+* [Installation](https://github.com/danielwetan/national-library#installation)
+* [Features](https://github.com/danielwetan/national-library#features)
+* [Built wtih](https://github.com/danielwetan/national-library#features)
+* [Author](https://github.com/danielwetan/national-library#author)
+* [License](https://github.com/danielwetan/national-library#license)
 
 ## Prerequisites
 - Node.js installed on the local machine
@@ -45,4 +45,4 @@ This app is a first week assignment on the [Arkademy](https://www.arkademy.com/)
 - [Daniel Saputra](https://www.linkedin.com/in/danielwetan/)
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/danielwetan/national-library/blob/master/LICENSE) file for details

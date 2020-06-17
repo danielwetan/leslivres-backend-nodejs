@@ -7,9 +7,11 @@ const multerHelper = require('../helpers/multer');
 const storage = multerHelper.storage;
 const upload = multer({ storage: storage })
 const authMiddleware = require('../middleware/auth');
+const verifyJwtToken = authMiddleware.verifyJwtToken
+const checkRole = authMiddleware.checkRole
 
-router.get('/', authMiddleware.verifyJwtToken ,bookController.getBook)
-router.post('/', upload.single('image'), bookController.createBook)
-router.put('/:id', upload.single('image'), bookController.updateBook)
-router.delete('/:id', bookController.deleteBook)
+router.get('/', bookController.getBook)
+router.post('/', verifyJwtToken, checkRole, upload.single('image'), bookController.createBook)
+router.put('/:id', verifyJwtToken, checkRole, upload.single('image'), bookController.updateBook)
+router.delete('/:id', verifyJwtToken, checkRole, bookController.deleteBook)
 module.exports = router;

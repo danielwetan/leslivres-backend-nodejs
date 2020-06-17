@@ -10,8 +10,6 @@ module.exports = {
       let sort = req.query.sort;
       let page = req.query.page;
       
-      console.log(req.decodedToken);
-
       // Ternary operator for query params
       search && sort && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}' LIMIT ${page}`
       : search && sort ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}'`
@@ -27,7 +25,7 @@ module.exports = {
       const result = await bookModel.getBookModel();
       return helper.response(res, 'success', result, 200);
     } catch(err) {
-      console.log(err);
+      console.log('Error');
       return helper.response(res, 'failed', 'Something Error', 500);
     }
   },

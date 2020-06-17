@@ -1,19 +1,23 @@
 const jwt = require('jsonwebtoken');
 const config = require('../configs/global');
 const helper = require('../helpers/response');
+let decoded;
 
 module.exports = {
   verifyJwtToken: (req, res, next) => {
-    const splitToken = req.headers.authorization.split(' ')
-    let mainToken = '';
-    if(splitToken.length > 1) {
-      mainToken = splitToken.pop(); 
-    } else {
-      mainToken = req.headers.authorization
+    /// CREATE CONDITION WHEN USER NOT LOGGED IN HERE!!!
+      const splitToken = req.headers.authorization.split(' ')
+      let token = config.jwt.mainToken;
+      if(splitToken.length > 1) {
+        token = splitToken.pop(); 
+      } else if(splitToken.length == 1) {
+        token = req.headers.authorization
+      } else { // Did this is useless?? check later when user not login error handling
+        return helper.response(res, 'fail', 'You must loggin to do this action', 401);
     }
     try {
-      const decoded = jwt.verify(mainToken, config.jwtSecretKey);      
-      req.decodedToken = decoded;
+      decoded = jwt.verify(token, config.jwt.secretKey);     
+      console.log(decoded);
       next();
     } catch (err) {
       // console.log(err.name);
@@ -23,21 +27,17 @@ module.exports = {
       return helper.response(res, 'fail', 'Invalid token', 401);
     }
   },
-//  verifyJwtRefreshToken //
-/*
-  Proses membuat token baru dengan decode RefreshToken
-  Kirim refresh token bersama token asli
-  Jika kedua token habis maka user harus login ulang.
-  Refresh token bisa diberi di new router atau middleware
-*/
-
-// Check Role
-/*
-Role admin => create, update, delete book
-  Role user => borrow book
-  Public user => access get router
-*/
+  checkRole: (req, res, next) => {
+    try {
+      const role = decoded.role
+      if(role == 1) {
+        next();
+      } else {
+        const msg = `You're not an admin!`
+        return helper.response(res, 'fail', msg, 404)
+      }
+    } catch {
+      return helper.response(res, 'fail', 'Something Error!!', 404);
+    }
+  }
 }
-
-
-// 46:34

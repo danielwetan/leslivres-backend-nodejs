@@ -1,7 +1,7 @@
 {
-  "name": "library-crud",
+  "name": "national-library",
   "version": "1.0.0",
-  "description": "",
+  "description": "First week assignment on the Arkademy bootcamp",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "dev": "nodemon app"
   },
   "author": "Daniel Saputra",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcrypt": "^5.0.0",
