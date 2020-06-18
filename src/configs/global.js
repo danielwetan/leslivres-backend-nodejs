@@ -8,8 +8,6 @@ const config = {
   },
   jwt: {
     secretKey: process.env.JWT_SECRET,
-    mainToken: process.env.JWT_MAIN_TOKEN,
-    refreshToken: process.env.JWT_REFRESH_TOKEN,
     mainTokenLife: process.env.JWT_MAIN_TOKEN_LIFE,
     refreshTokenLife: process.env.JWT_REFRESH_TOKEN_LIFE
   }

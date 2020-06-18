@@ -75,7 +75,6 @@ module.exports = {
   //       decoded.tokenType = 'main';
   //       newToken = jwt.sign(decoded, config.jwt.secretKey, { expiresIn: config.jwt.mainTokenLife })
   //     }
-
   //     console.log(newToken);
   //     return helper.response(res, 'success', 'Keep trying!', 200);
   //   } catch(err) {

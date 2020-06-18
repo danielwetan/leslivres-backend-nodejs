@@ -19,8 +19,7 @@ module.exports = {
       : sort ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}'`
       : page > 1 ? query.book.get = `SELECT * FROM books\n LIMIT 3 OFFSET ${page*3-3}`
       : page ? query.book.get = query.book.params.page
-      : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id)"
-
+      : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id) LIMIT 3"
 
       const result = await bookModel.getBookModel();
       return helper.response(res, 'success', result, 200);
