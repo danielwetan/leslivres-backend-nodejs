@@ -14,6 +14,7 @@ module.exports = {
   },
   book: {
     get: "",
+    single: "SELECT * FROM books WHERE id=?",
     post: "INSERT INTO books SET ?",
     update: "UPDATE books SET ? WHERE id=?",
     delete: "DELETE FROM books WHERE id=?"

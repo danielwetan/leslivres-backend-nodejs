@@ -13,7 +13,8 @@ connection.connect((err) => {
   console.log('Database has connected')
 })
 
-app.use(cors());
+app.use(express.static('src/public/'))
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));

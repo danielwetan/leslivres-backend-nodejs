@@ -9,6 +9,7 @@ module.exports = {
       let search = req.query.search;
       let sort = req.query.sort;
       let page = req.query.page;
+      let id = req.query.id;
       
       // Ternary operator for query params
       search && sort && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}' LIMIT 3 OFFSET ${page*3-3}`
@@ -18,13 +19,23 @@ module.exports = {
       : search ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' LIMIT 3`
       : sort ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}' LIMIT 3`
       : page > 1 ? query.book.get = `SELECT * FROM books\n LIMIT 3 OFFSET ${page*3-3}`
-      : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id) LIMIT 3"
+      : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id) LIMIT 6"
 
       const result = await bookModel.getBookModel();
       return helper.response(res, 'success', result, 200);
     } catch(err) {
       console.log('Error');
       return helper.response(res, 'failed', 'Something Error', 500);
+    }
+  },
+  getSingleBook: async (req, res) => {
+    try {
+      const id = req.params.id
+      const result = await bookModel.getSingleBookModel(id);
+      return helper.response(res, 'success', result, 200);
+    } catch(err) {
+      console.log(err);
+      return helper.response(res, 'failed', 'Something Error', 500)
     }
   },
   createBook: async (req, res) => {

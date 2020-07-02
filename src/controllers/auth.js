@@ -57,30 +57,6 @@ module.exports = {
       console.log(err);
       return helper.response(res, 'fail', 'Something error!', 200);
     }
-  },
-  // refreshToken: async (req, res) => {
-  //   try {
-  //     const setData = req.body;
-  //     console.log(setData);
-  //     console.log('\n')
-  //     const refreshToken = setData.refreshToken
-  //     console.log(refreshToken);
-  //     console.log('\n')
-  //     const decoded = jwt.verify(refreshToken, config.jwt.secretKey)
-  //     let newToken;
-
-  //     if(decoded.tokenType == 'refresh') {
-  //       delete decoded.iat;
-  //       delete decoded.exp;
-  //       decoded.tokenType = 'main';
-  //       newToken = jwt.sign(decoded, config.jwt.secretKey, { expiresIn: config.jwt.mainTokenLife })
-  //     }
-  //     console.log(newToken);
-  //     return helper.response(res, 'success', 'Keep trying!', 200);
-  //   } catch(err) {
-  //     console.log(err);
-  //     return helper.response(res, 'fail', 'Something error!', 200);
-  //   }
-  // }
+  }
 }
 

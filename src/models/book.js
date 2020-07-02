@@ -13,6 +13,17 @@ module.exports = {
         });
       });
   },
+  getSingleBookModel: (id) => {
+    return new Promise((resolve, reject) => {
+      connection.query(query.book.single, id, (err, result) => {
+        if(err) {
+          reject(err)
+        }
+        resolve(result);
+      })
+    })
+  }
+  ,
   createBookModel: (setData) => {
     return new Promise((resolve, reject) => {
       connection.query(query.book.post , setData, (err, result) => {

@@ -11,7 +11,10 @@ const verifyJwtToken = authMiddleware.verifyJwtToken
 const checkRole = authMiddleware.checkRole
 
 router.get('/', bookController.getBook)
-router.post('/', verifyJwtToken, checkRole, upload.single('image'), bookController.createBook)
+router.get('/:id', bookController.getSingleBook)
+router.post('/', upload.single('image'), bookController.createBook)
 router.put('/:id', verifyJwtToken, checkRole, upload.single('image'), bookController.updateBook)
-router.delete('/:id', verifyJwtToken, checkRole, bookController.deleteBook)
+// router.delete('/:id', verifyJwtToken, checkRole, bookController.deleteBook)
+router.delete('/:id', bookController.deleteBook)
+
 module.exports = router;

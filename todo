@@ -1,3 +1,20 @@
+Main
+- Book stock, ex. Harry Potter => stock 50. New table
+  if stock < 1 turn into not avaialable => Ismoyo
 
-ALMOST COMPLETE!!!!
-- Presentation -> Node.js, Express, JWT, CORS, dll 
+# Image Upload
+- Validation size and file type => Prio, Dompit
+- Update Image => Prio, Dompit
+- Delete image when update => Rizky
+
+# Pagination
+- Next and Previous page => Alifki
+
+# Login / Register
+- Email authentification for register and login => Prio
+  with package mailer => email authentification => Prio
+
+# Book transaction
+- Borrow and return book database => Alifki, Ismoyo, Dompit
+- Borrow and return Book router => Alifki, Ismoyo, Dompit
+- DB for book transaction
