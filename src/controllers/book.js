@@ -7,19 +7,23 @@ module.exports = {
   getBook: async (req, res) => {
     try {
       let search = req.query.search;
-      let sort = req.query.sort;
+      let status = req.query.status;
       let page = req.query.page;
-      let id = req.query.id;
-      
+      // let id = req.query.id;
+
+      const limit = "12"
+      const offset = `${page*12-12}`
+      const baseQuery = `SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id)`
+
       // Ternary operator for query params
-      search && sort && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}' LIMIT 3 OFFSET ${page*3-3}`
-      : search && sort ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' AND status='${sort}' LIMIT 3`
-      : search && page ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' LIMIT 3 OFFSET ${page*3-3}`
-      : sort && page ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}' LIMIT 3 OFFSET ${page*3-3}`
-      : search ? query.book.get = `SELECT * FROM books\n WHERE title LIKE '%${search}%' LIMIT 3`
-      : sort ? query.book.get = `SELECT * FROM books\n WHERE status='${sort}' LIMIT 3`
-      : page > 1 ? query.book.get = `SELECT * FROM books\n LIMIT 3 OFFSET ${page*3-3}`
-      : query.book.get = "SELECT books.id as id, books.title as title, books.description as description, books.image as img, authors.name as author, genres.name as genre, books.status as status, books.date_added as added, books.date_updated as updated FROM ((books INNER JOIN authors ON books.author = authors.id) INNER JOIN genres ON books.genre = genres.id) LIMIT 6"
+      search && status && page ? query.book.get = `${baseQuery} WHERE title LIKE '%${search}%' AND status='${status}' LIMIT ${limit} OFFSET ${poffset}`
+      : search && status ? query.book.get = `${baseQuery} WHERE title LIKE '%${search}%' AND status='${status}' LIMIT ${limit}`
+      : search && page ? query.book.get = `${baseQuery} WHERE title LIKE '%${search}%' LIMIT ${limit} OFFSET ${offset}`
+      : status && page ? query.book.get = `${baseQuery} WHERE status='${status}' LIMIT ${limit} OFFSET ${offset}`
+      : search ? query.book.get = `${baseQuery} WHERE title LIKE '%${search}%' LIMIT ${limit}`
+      : status ? query.book.get = `${baseQuery} WHERE status='${status}'`
+      : page > 1 ? query.book.get = `${baseQuery} LIMIT ${limit} OFFSET ${offset}`
+      : query.book.get = `${baseQuery} LIMIT ${limit}`
 
       const result = await bookModel.getBookModel();
       return helper.response(res, 'success', result, 200);

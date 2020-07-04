@@ -8,12 +8,12 @@ module.exports = {
         if(err) {
           reject(err);
         };
-        const resMsg = {
-          id: result.insertId,
-          ...setData,
-          msg: 'New user added!'
-        }
-        resolve(resMsg);
+        // const resMsg = {
+        //   id: result.insertId,
+        //   ...setData,
+        //   msg: 'New user added!'
+        // }
+        resolve(result);
       })
     })
   },
@@ -28,3 +28,8 @@ module.exports = {
     })
   }
 }
+
+/**
+  "font-swicther.enableLivePreview": true,
+  "font-switcher.fontFamily": "Hack, Consolas, Deja Vu Sans Mono, monospace"
+*/
