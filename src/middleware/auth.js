@@ -1,19 +1,13 @@
 const jwt = require('jsonwebtoken');
 const config = require('../configs/global');
 const helper = require('../helpers/response');
-let decoded;
 
 module.exports = {
   verifyJwtToken: (req, res, next) => {
-      const splitToken = req.headers.authorization.split(' ')
       let token = config.jwt.mainToken;
-      if(splitToken.length > 1) {
-        token = splitToken.pop(); 
-      } else if(splitToken.length == 1) {
-        token = req.headers.authorization
-      }
+      token = req.headers.authorization
     try {
-      decoded = jwt.verify(token, config.jwt.secretKey);     
+      let decoded = jwt.verify(token, config.jwt.secretKey);     
       console.log(decoded);
       next();
     } catch (err) {

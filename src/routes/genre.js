@@ -4,15 +4,12 @@ const router = express.Router();
 const genreController = require('../controllers/genre');
 const authMiddleware = require('../middleware/auth');
 const verifyJwtToken = authMiddleware.verifyJwtToken
-const checkRole = authMiddleware.checkRole
-
-// const multer = require('../helpers/multer')
 const multer = require('../helpers/multer');
-
+// const checkRole = authMiddleware.checkRole
 
 router.get('/', genreController.getAllGenre);
-router.post('/', multer.none(), genreController.postGenre);
-router.put('/:id', multer.none(), genreController.updateGenre);
-router.delete('/:id', genreController.deleteGenre);
+router.post('/', verifyJwtToken, multer.none(), genreController.postGenre);
+router.put('/:id', verifyJwtToken, multer.none(), genreController.updateGenre);
+router.delete('/:id', verifyJwtToken, genreController.deleteGenre);
 
 module.exports = router;
