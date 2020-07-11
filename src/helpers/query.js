@@ -1,13 +1,13 @@
 // SQL query for models
 module.exports = {
   author: {
-    get: "SELECT * FROM authors",
+    get: "SELECT * FROM authors ORDER BY id DESC",
     post: "INSERT INTO authors SET ?",
     update: "UPDATE authors SET ? WHERE id=?",
     delete: "DELETE FROM authors WHERE id=?"
   },
   genre: {
-    get: "SELECT * FROM genres",
+    get: "SELECT * FROM genres ORDER BY id DESC",
     post: "INSERT INTO genres SET ?",
     update: "UPDATE genres SET ? WHERE id=?",
     delete: "DELETE FROM genres WHERE id=?"
