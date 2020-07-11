@@ -9,16 +9,16 @@ const app = express();
 const cors = require('cors');
 
 connection.connect((err) => {
-  if(err) throw err;
+  if (err) throw err;
   console.log('Database has connected')
 })
 
 app.use(express.static('src/public/'))
 app.use(cors())
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use('/', routes);
 
 const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => {console.log(`App running on port ${PORT}`)});
+const server = app.listen(PORT, () => { console.log(`App running on port ${PORT}`) });

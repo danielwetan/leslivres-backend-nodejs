@@ -28,8 +28,3 @@ module.exports = {
     })
   }
 }
-
-/**
-  "font-swicther.enableLivePreview": true,
-  "font-switcher.fontFamily": "Hack, Consolas, Deja Vu Sans Mono, monospace"
-*/

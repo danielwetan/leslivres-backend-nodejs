@@ -14,7 +14,6 @@ module.exports = {
   },
   postGenre: async (req, res) => {
     const setData = req.body;
-    console.log(setData)
     try {
       if(!setData.name) {
         return helper.response(res, 'failed', 'Name cannot be empty!', 500);

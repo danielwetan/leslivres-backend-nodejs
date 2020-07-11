@@ -8,8 +8,8 @@ const verifyJwtToken = authMiddleware.verifyJwtToken
 const checkRole = authMiddleware.checkRole
 
 router.get('/', genreController.getAllGenre);
-router.post('/',  verifyJwtToken, checkRole, multer.upload.none(), genreController.postGenre);
-router.put('/:id',  verifyJwtToken, checkRole, multer.upload.none(), genreController.updateGenre);
-router.delete('/:id',  verifyJwtToken, checkRole, genreController.deleteGenre);
+router.post('/', multer.upload.none(), genreController.postGenre);
+router.put('/:id', multer.upload.none(), genreController.updateGenre);
+router.delete('/:id', genreController.deleteGenre);
 
 module.exports = router;
