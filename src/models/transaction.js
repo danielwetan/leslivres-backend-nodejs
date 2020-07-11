@@ -12,6 +12,16 @@ module.exports = {
       })
     })
   },
+  singleTransaction: id => {
+    return new Promise((resolve, reject) => {
+      connection.query(query.transaction.singleTransaction, id, (err, result) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(result);
+      })
+    })
+  },
   createTransaction: setData => {
     return new Promise((resolve, reject) => {
       connection.query(query.transaction.post, setData, (err, result) => {

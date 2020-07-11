@@ -27,9 +27,10 @@ module.exports = {
   },
   transaction: {
     get: "SELECT transaction.id as id, users.username as user, books.title as book, transaction.status as status, transaction.count as count, transaction.borrow_date as borrow_date, transaction.return_date as return_date FROM books INNER JOIN transaction ON transaction.book = books.id INNER JOIN users ON transaction.user = users.id ORDER BY id DESC",
+    singleTransaction: "SELECT transaction.id as id, users.username as user, books.title as book, transaction.status as status, transaction.count as count, transaction.borrow_date as borrow_date, transaction.return_date as return_date FROM books INNER JOIN transaction ON transaction.book = books.id INNER JOIN users ON transaction.user = users.id WHERE users.id=?", // display borrow history for single user
     post: "INSERT INTO transaction SET ?", // post new transaction
     update: "UPDATE transaction SET ? WHERE id=?", // update transaction (return book)
-    delete: "DELETE FROM transaction WHERE id=?" // delete transaction
+    delete: "DELETE FROM transaction WHERE id=?", // delete transaction
   },
   auth: {
     register: "INSERT INTO users SET ?"

@@ -11,6 +11,15 @@ module.exports = {
       return helper.response(res, 'failed', 'Something Error', 500);
     }
   },
+  getSingleTransaction: async (req, res) => {
+    const id = req.params.id
+    try {
+      const result = await transactionModel.singleTransaction(id);
+      return helper.response(res, 'success', result, 200);
+    } catch(err) {
+      return helper.response(res, 'failed', 'Something Error', 500);
+    }
+  },
   createTransaction: async (req, res) => {
     const setData = req.body;
     try {
