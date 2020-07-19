@@ -34,5 +34,8 @@ module.exports = {
   },
   auth: {
     register: "INSERT INTO users SET ?"
+  },
+  user: {
+    get: "SELECT * from users WHERE id = ?"
   }
 }
