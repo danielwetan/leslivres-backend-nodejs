@@ -1,4 +1,4 @@
-`National Library` is a backend app built in Node.js, Express and MySQL which has [features](https://github.com/danielwetan/national-library#features) such as login / register using JWT, pasword hashing, CORS, etc. 
+`LesLivres` is a backend app built in Node.js, Express and MySQL which has [features](https://github.com/danielwetan/national-library#features) such as login / register using JWT, pasword hashing, CORS, etc. 
 
 This app is a first week assignment on the [Arkademy](https://www.arkademy.com/) Bootcamp
 

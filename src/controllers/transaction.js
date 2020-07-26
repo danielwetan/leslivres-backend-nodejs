@@ -27,7 +27,7 @@ module.exports = {
       return helper.response(res, 'success', result, 200);
     } catch(err) {
       console.log(err);
-      return helper.response(res, 'failed', 'Something Error', 500);
+      return helper.response(res, 'failed', err, 500);
     }
   },
   updateTransaction: async (req, res) => {

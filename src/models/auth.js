@@ -8,11 +8,6 @@ module.exports = {
         if(err) {
           reject(err);
         };
-        // const resMsg = {
-        //   id: result.insertId,
-        //   ...setData,
-        //   msg: 'New user added!'
-        // }
         resolve(result);
       })
     })
