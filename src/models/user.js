@@ -8,6 +8,9 @@ module.exports = {
         if(err) {
           reject(err)
         }
+        delete result[0].password
+        delete result[0].date_added
+        delete result[0].date_updated
         resolve(result);
       })
     })
