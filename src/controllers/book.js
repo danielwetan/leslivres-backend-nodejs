@@ -41,8 +41,6 @@ module.exports = {
       const result = await bookModel.getSingleBookModel(id);
       const entries = Object.entries(result[0]);
       const obj = Object.fromEntries(entries);
-      // delete obj.created_at
-      // delete obj.updated_at
       console.log("Hello from main controller")
       const name = 'product:';
       redis.caching(name, id, obj)
@@ -72,8 +70,9 @@ module.exports = {
       const result = await bookModel.updateBookModel(id, newData);
       if (result.affectedRows == 1) {
         if (!newData.title) {
-          return helper.response(res, 'success', 'value cannot be empty!', 200);
+          return helper.response(res, 'failed', 'value cannot be empty!', 200);
         }
+        redis.deleteCache('product:' + id);
         return helper.response(res, 'success', `Data with id ${id} successfully updated`, 200);
       }
       return helper.response(res, 'failed', `Data with id ${id} not found`, 404);
@@ -87,6 +86,7 @@ module.exports = {
     try {
       const result = await bookModel.deleteBookModel(id);
       if (result.affectedRows == 1) {
+        redis.deleteCache('product:' + id);
         return helper.response(res, 'success', `Data with id ${id} successfully deleted`, 200);
       }
       return helper.response(res, 'failed', `Data with id ${id} not found`, 404);

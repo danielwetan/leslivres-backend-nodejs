@@ -1,7 +1,7 @@
 const helper = require('../helpers/response');
 const redis = require('redis');
 require('dotenv').config();
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_PORT);
 
 module.exports = {
   getCached: (name) => {
@@ -10,7 +10,6 @@ module.exports = {
       client.hgetall(`${name}:` + id, (err, data) => {
         if (err) throw err;
         if (data != null) {
-          console.log("Hello from Redis");
           return helper.response(res, 'success', data, 200);
         } else {
           next();

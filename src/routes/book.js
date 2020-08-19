@@ -15,7 +15,7 @@ const redis = require('../middleware/redis');
 const multer = require('../helpers/multer');
 
 router.get('/', bookController.getBook)
-router.get('/:id', bookController.getSingleBook)
+router.get('/:id', redis.getCached('product'), bookController.getSingleBook)
 router.post('/', verifyJwtToken, multer.single('image'), bookController.createBook)
 router.put('/:id', verifyJwtToken, multer.single('image'), bookController.updateBook)
 router.delete('/:id', verifyJwtToken, bookController.deleteBook)
