@@ -1,6 +1,7 @@
 // Main logic for Author route
 const helper = require('../helpers/response');
 const authorModel = require('../models/author');
+const redis = require('../middleware/redis');
 
 module.exports = {
   getAllAuthor: async (req, res) => {
@@ -47,8 +48,6 @@ module.exports = {
     const id = req.params.id;
     try {
       const result = await authorModel.deleteAuthorModel(id);
-      console.log(id);
-      console.log(result);
       result.affectedRows == 1 ? helper.response(res, 'success', `Data with id ${id} successfully deleted`, 200)
         : helper.response(res, 'failed', `Data with id ${id} not found`, 404)
     } catch (err) {

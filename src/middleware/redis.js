@@ -10,6 +10,7 @@ module.exports = {
       client.hgetall(`${name}:` + id, (err, data) => {
         if (err) throw err;
         if (data != null) {
+          console.log("Hello from Redis");
           return helper.response(res, 'success', data, 200);
         } else {
           next();
