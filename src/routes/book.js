@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const bookController = require('../controllers/book');
 const authMiddleware = require('../middleware/auth');
-const verifyJwtToken = authMiddleware.verifyJwtToken
+const verifyJwtToken = authMiddleware.verifyJwtToken;
+const redis = require('../middleware/redis');
 // const checkRole = authMiddleware.checkRole
 
 // const multer = require('multer');

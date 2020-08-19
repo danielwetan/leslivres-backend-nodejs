@@ -2,6 +2,7 @@
 const helper = require('../helpers/response');
 const bookModel = require('../models/book');
 const query = require('../helpers/query');
+const redis = require('../middleware/redis');
 
 module.exports = {
   getBook: async (req, res) => {
@@ -38,6 +39,13 @@ module.exports = {
     try {
       const id = req.params.id
       const result = await bookModel.getSingleBookModel(id);
+      const entries = Object.entries(result[0]);
+      const obj = Object.fromEntries(entries);
+      // delete obj.created_at
+      // delete obj.updated_at
+      console.log("Hello from main controller")
+      const name = 'product:';
+      redis.caching(name, id, obj)
       return helper.response(res, 'success', result, 200);
     } catch (err) {
       console.log(err);
