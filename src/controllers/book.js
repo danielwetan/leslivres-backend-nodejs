@@ -47,6 +47,7 @@ module.exports = {
   createBook: async (req, res) => {
     const setData = req.body;
     setData.img = req.file ? req.file.filename : '';
+    console.log(setData)
     try {
       const result = await bookModel.createBookModel(setData);
       return helper.response(res, 'success', result, 201);

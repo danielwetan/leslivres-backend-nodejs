@@ -20,11 +20,11 @@ module.exports = {
     delete: "DELETE FROM books WHERE id=?"
   },
   transaction: {
-    get: "SELECT transaction.id as id, users.username as user, books.title as book, transaction.status as status, transaction.borrow_date as borrow_date, transaction.return_date as return_date FROM books INNER JOIN transaction ON transaction.book = books.id INNER JOIN users ON transaction.user = users.id ORDER BY id DESC",
-    singleTransaction: "SELECT transaction.id as id, users.username as user, books.title as book, transaction.status as status, transaction.borrow_date as borrow_date, transaction.return_date as return_date FROM books INNER JOIN transaction ON transaction.book = books.id INNER JOIN users ON transaction.user = users.id WHERE users.id=? ORDER BY id DESC", // display borrow history for single user
-    post: "INSERT INTO transaction SET ?", // post new transaction
-    update: "UPDATE transaction SET ? WHERE id=?", // update transaction (return book)
-    delete: "DELETE FROM transaction WHERE id=?", // delete transaction
+    get: "SELECT transactions.id as id, users.username as user, books.title as book, transactions.status as status, transactions.borrow_date as borrow_date, transactions.return_date as return_date FROM books INNER JOIN transactions ON transactions.book = books.id INNER JOIN users ON transactions.user = users.id ORDER BY id DESC",
+    singletransactions: "SELECT transactions.id as id, users.username as user, books.title as book, transactions.status as status, transactions.borrow_date as borrow_date, transactions.return_date as return_date FROM books INNER JOIN transactions ON transactions.book = books.id INNER JOIN users ON transactions.user = users.id WHERE users.id=? ORDER BY id DESC", // display borrow history for single user
+    post: "INSERT INTO transactions SET ?", // post new transactions
+    update: "UPDATE transactions SET ? WHERE id=?", // update transactions (return book)
+    delete: "DELETE FROM transactions WHERE id=?", // delete transactions
   },
   auth: {
     register: "INSERT INTO users SET ?"

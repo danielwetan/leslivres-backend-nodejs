@@ -14,7 +14,7 @@ router.use('/book', bookRouter);
 router.use('/auth', authRouter);
 router.use('/transaction', transactionRouter);
 router.use('/user', userRouter)
-router.use('*', (req, res) => { res.json({ msg: "Page not found 404" }) })
+router.use('*', (req, res) => { res.json({ msg: "Page not found - 404" }) })
 
 module.exports = router;
 
